@@ -1,18 +1,61 @@
-// const heading =React.createElement("h1",{id:"heading"},"Hello world from React");
-// const root=ReactDOM.createRoot(document.getElementById("root"));
-// root.render(heading)
+import React from "react";
+import ReactDOM from "react-dom/client";
+import Body from "./src/component/Body"; 
+import Header from "./src/component/Header";
+import Footer from "./src/component/Footer";
+import { createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
+
+import Error from "./src/component/Error";
+import About from "./src/component/About";
+import Contact from "./src/component/Contact";
+import RestaurantMenu from "./src/component/RestaurantMenu";
+
+const AppLayout=()=>{
+      
+       return (
+              <div className="App">
+                     <Header/>
+                     <Outlet/>
+                
+                     <Footer/>
+                     </div>
+       )
+}
+const AppRouter=createBrowserRouter([
+       { path:"/",
+              element:<AppLayout/>,
+              children :[
+                     {
+                            path:"/",
+                            element:<Body/>,
+                     },
+                     { path:"/about",
+                            element:<About/>,
+                            errorElement:<Error/>,
+                     },
+                     { path:"/contact",
+                            element:<Contact/>,
+                            errorElement:<Error/>,
+                     }, 
+                     { path:"/restaurants/:resId",
+                            element:<RestaurantMenu/>
+                     
+                     },      
+                     
+                     
+              ],
+              errorElement:<Error/>,
+},
 
 
-const parent= React.createElement("div",{id:"parent"},
-    [React.createElement("div",{id:"child"},[ 
-        React.createElement("h1",{},"Hi I'm H1 tag"),
-        React.createElement("h2",{},"Hi I'm H2 tag ")
- ]
-        ),React.createElement("div",{id:"child2"},[ 
-            React.createElement("h1",{},"Hi I'm H1 tag"),
-            React.createElement("h2",{},"Hi I'm H2 tag ")
-     ]
-            )])
+              
 
-const root=ReactDOM.createRoot(document.getElementById("root"))
-root.render(parent)
+
+]);
+      
+
+const root=ReactDOM.createRoot(document.getElementById("root"));
+root.render(<RouterProvider router={AppRouter}/>);
+
+
+

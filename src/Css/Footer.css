@@ -1,0 +1,39 @@
+.restaurant-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px 16px 16px 16px;
+    width: 230px;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    box-sizing: border-box;
+    margin: 10px 10px 10px 10px;
+    transition: transform 0.3s;
+    gap: 10px;
+    justify-content: space-between;
+    position: relative; /* Added to avoid overlap */
+}
+
+.restaurant-card .image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+}
+
+.restaurant-card h2 {
+    font-size: 1.5em;
+    margin: 8px 0;
+}
+
+.restaurant-card span {
+    display: block;
+    margin: 4px 0;
+    
+    color: #050505;
+    word-wrap: break-word;
+}
+
+.restaurant-card:hover {
+    transform: scale(1.0)  translate(5px, 5px);
+    transition: transform 0.3s ease-in-out; /* Smooth transition */
+}
