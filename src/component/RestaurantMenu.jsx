@@ -1,45 +1,43 @@
 import React from 'react'
-import { useEffect ,useState} from 'react'
 import Shimmer from './Shimmer';
+import { useParams } from 'react-router-dom';
+import useRestaurantMenu from '../Assets/useRestaurantMenu';
+
 const RestaurantMenu = () => {
-   const[resInfo, setResInfo]=useState(null);
+  const { resId } = useParams();
+  const resInfo = useRestaurantMenu(resId);
 
-  useEffect(()=>{
-    fetchMenu();
-  },[])
-  const fetchMenu= async ()=>{
-    const data= await fetch("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=30.7333148&lng=76.7794179&restaurantId&catalog_qa=undefined&submitAction=ENTER")
-    const json= await data.json();
+  if (resInfo === null) return <Shimmer />;
 
-    console.log(json);
-    setResInfo(json.data)
-  };
-    
-  if(resInfo=== null ) return <Shimmer/> 
-  
+  const { name, cuisines, costForTwoMessage } =
+    resInfo[2]?.card?.card?.info || {};
 
-  const {name,cuisines,costForTwoMessage}= resInfo?.cards[2]?.card?.card?.info
+  const itemCards =
+    resInfo[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
 
-  const {itemCards} = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
-
-  console.log(itemCards)
- 
-  return   (
-    <div className='menu'>
+  return (
+    <div className="menu">
       <h1>{name}</h1>
-
-      <h3>{cuisines.join(", ")} - {costForTwoMessage}</h3>
+      <h3>{cuisines?.join(", ")} - {costForTwoMessage}</h3>
       <h3>Menu</h3>
- 
-    
-      <ul >
-        {itemCards.map((item)=> (
-         <li key={item.card.info.id}>{item.card.info.name} -{"Rs. "} {item.card.info.defaultPrice /100}</li> 
-        )
 
-        )}
+      <ul>
+        {itemCards.slice(2).flatMap((item) => {
+          const newData = item?.card?.card?.itemCards;
+          return (
+            newData?.map((newItem) => {
+              const { id, name, defaultPrice, price } = newItem.card.info;
+              const displayPrice = defaultPrice || price || 0;
+              return (
+                <li key={id}>
+                  {name} - ₹{displayPrice / 100}
+                </li>
+              );
+            }) || []
+          );
+        })}
       </ul>
-      </div>
+    </div>
   );
 };
 
