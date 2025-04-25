@@ -25,10 +25,12 @@
     "parcel": "^2.14.4"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.4",
     "axios": "^1.8.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^6.11.0"
+    "react-router-dom": "^6.11.0",
+    "tailwindcss": "^4.1.4"
   },
   "browserslist": [
     "last 2 versions"
