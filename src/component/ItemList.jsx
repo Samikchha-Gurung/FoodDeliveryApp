@@ -1,6 +1,14 @@
+import { useDispatch } from "react-redux";
 import { CDN_URL } from "../Assets/constant";
+import { addItems } from "../Assets/cartSlice";
+
 const ItemList=({items})=>{
-    console.log(items);
+    const dispatch=useDispatch();
+
+    const handleAddItem=(item)=>{
+        dispatch(addItems(item));
+    }
+    // console.log(items);
     return(
         <div>
                 {items.map((item) =>(
@@ -12,15 +20,16 @@ const ItemList=({items})=>{
                         <div className="w-9/12">
                         <div className="py-2">
                             <span>{item.card.info.name}</span>
-                            <span> - ₹ {item.card.info.price ? item.card.info.price / 100 : item.card.info.defaultPrice }</span>
+                            <span> - ₹ {item.card.info.price ? item.card.info.price/100 : item.card.info.defaultPrice/100 }</span>
 
                     </div>
-                    <p className="text-xs">{item.card.info.description}</p>
+                    <p className="text-xs whitespace-normal">{item.card.info.description}</p>
                     </div>
                     <div className="w-3/12 p-4"> 
                     <div className="absolute">
 
-                    <button className="p-2 mx-8 font-bold text-green-500 bg-white shadow-lg my-16 rounded-lg">ADD </button>
+                    <button className="p-2 mx-8 font-bold text-green-500 bg-white shadow-lg my-16 rounded-lg"
+                     onClick={()=>handleAddItem(item)}>ADD </button>
                         </div>
                         <img src={CDN_URL + item.card.info.imageId} className="w-full"/>
                         </div>
