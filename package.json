@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "parcel index.html",
-    "build": "NODE_OPTIONS='--max-old-space-size=1024' parcel build index.html",
+    "build": "parcel build index.html",
     "test": "jest"
   },
   "repository": {
@@ -22,7 +22,7 @@
   "homepage": "https://github.com/Samikchha-Gurung/FoodDeliveryApp#readme",
   "devDependencies": {
     "buffer": "^6.0.3",
-    "parcel": "^2.14.4"
+    "parcel": "^2.0.1"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.7.0",
